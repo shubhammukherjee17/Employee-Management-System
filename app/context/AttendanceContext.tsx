@@ -42,8 +42,23 @@ export const AttendanceProvider = ({ children }: { children: React.ReactNode }) 
 
     const clockIn = async (employeeId: string) => {
         const today = new Date().toISOString().split('T')[0];
+        
+        // Check if already clocked in today
+        const existingRecord = records.find(r => r.employeeId === employeeId && r.date === today && !r.clockOutTime);
+        if (existingRecord) {
+            alert("You are already clocked in for today. Please clock out first.");
+            return;
+        }
+
         const now = new Date();
-        const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        
+        // Format time as "9:34:31 am/pm" (with seconds)
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const seconds = now.getSeconds();
+        const ampm = hours >= 12 ? 'pm' : 'am';
+        const displayHours = hours % 12 || 12;
+        const timeString = `${displayHours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} ${ampm}`;
 
         // Check if late (after 9:30 AM)
         const isLate = now.getHours() > 9 || (now.getHours() === 9 && now.getMinutes() > 30);
@@ -60,13 +75,21 @@ export const AttendanceProvider = ({ children }: { children: React.ReactNode }) 
             await addDoc(collection(db, 'attendance'), newRecord);
         } catch (error) {
             console.error("Error clocking in:", error);
-            alert("Failed to clock in");
+            alert("Failed to clock in. Please try again.");
         }
     };
 
     const clockOut = async (employeeId: string) => {
         const today = new Date().toISOString().split('T')[0];
-        const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const now = new Date();
+        
+        // Format time as "9:34:31 am/pm" (with seconds)
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const seconds = now.getSeconds();
+        const ampm = hours >= 12 ? 'pm' : 'am';
+        const displayHours = hours % 12 || 12;
+        const timeString = `${displayHours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} ${ampm}`;
 
         // Find today's record for this employee
         // In a real app we might query Firestore directly, but filtering 'records' state is faster for UI if data is loaded
@@ -75,13 +98,14 @@ export const AttendanceProvider = ({ children }: { children: React.ReactNode }) 
         if (record) {
             try {
                 const recordRef = doc(db, 'attendance', record.id);
-                await updateDoc(recordRef, { clockOutTime: now });
+                await updateDoc(recordRef, { clockOutTime: timeString });
             } catch (error) {
                 console.error("Error clocking out:", error);
-                alert("Failed to clock out");
+                alert("Failed to clock out. Please try again.");
             }
         } else {
             console.warn("No active clock-in record found to clock out.");
+            alert("No active clock-in record found. Please clock in first.");
         }
     };
 
