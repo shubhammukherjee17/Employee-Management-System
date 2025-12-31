@@ -67,6 +67,48 @@
   .animation-delay-2000 {
     animation-delay: 2s;
   }
+
+  /* 3D Cube Rotations */
+  @keyframes rotate-3d {
+    0% {
+      transform: rotateX(0deg) rotateY(0deg);
+    }
+    100% {
+      transform: rotateX(360deg) rotateY(360deg);
+    }
+  }
+
+  @keyframes rotate-3d-slow {
+    0% {
+      transform: rotateX(0deg) rotateY(0deg);
+    }
+    100% {
+      transform: rotateX(-360deg) rotateY(360deg);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px) translateX(0px);
+      opacity: 0.3;
+    }
+    50% {
+      transform: translateY(-20px) translateX(10px);
+      opacity: 1;
+    }
+  }
+
+  .animate-rotate-3d {
+    animation: rotate-3d 20s linear infinite;
+  }
+
+  .animate-rotate-3d-slow {
+    animation: rotate-3d-slow 30s linear infinite;
+  }
+
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
 }
 
 body {

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
+import FuturisticIllustration from '../components/FuturisticIllustration';
 
 export default function LoginPage() {
     const [email, setEmail] = useState('');
@@ -28,18 +28,8 @@ export default function LoginPage() {
         <div className="flex min-h-screen bg-[#0a0a0a]">
             {/* Left Side - Illustration */}
             <div className="hidden lg:flex lg:w-2/3 bg-[#111] items-center justify-center p-12 border-r border-gray-800">
-                <div className="relative w-full max-w-lg aspect-square">
-                    {/* 
-                   Using the generated image. 
-                   Ensure the file exists in public/login-illustration.png 
-                */}
-                    <Image
-                        src="/login-illustration.png"
-                        alt="Login Illustration"
-                        fill
-                        className="object-contain"
-                        priority
-                    />
+                <div className="relative w-full h-full">
+                    <FuturisticIllustration />
                 </div>
             </div>
 

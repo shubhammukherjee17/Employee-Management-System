@@ -1,8 +1,8 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import Link from 'next/link';
+import FuturisticIllustration from './components/FuturisticIllustration';
 
 export default function Home() {
   const router = useRouter();
@@ -69,16 +69,13 @@ export default function Home() {
               <div className="relative bg-gray-900 rounded-[2.5rem] p-4 shadow-2xl border border-gray-800 rotate-[-2deg] hover:rotate-0 transition-transform duration-700">
                 {/* Mockup Internal */}
                 <div className="aspect-[4/3] bg-gray-800 rounded-3xl overflow-hidden relative border border-gray-700">
-                  <div className="absolute inset-0 flex items-center justify-center text-gray-600">
-                    <Image
-                      src="/login-illustration.png" // Reusing for demo visual
-                      alt="App Interface"
-                      fill
-                      className="object-cover opacity-90"
-                    />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-full h-full scale-75">
+                      <FuturisticIllustration />
+                    </div>
                   </div>
                   {/* Floating Cards */}
-                  <div className="absolute top-8 right-8 bg-gray-900/90 backdrop-blur-xl p-4 rounded-2xl border border-gray-700 shadow-xl animate-bounce duration-[3000ms]">
+                  <div className="absolute top-8 right-8 bg-gray-900/90 backdrop-blur-xl p-4 rounded-2xl border border-gray-700 shadow-xl animate-bounce duration-[3000ms] z-10">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-500">
                         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
