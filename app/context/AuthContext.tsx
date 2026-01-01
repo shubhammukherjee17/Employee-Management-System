@@ -4,7 +4,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { AuthState, User } from '../types';
 import { auth, googleProvider } from '../../lib/firebase';
-import { onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithRedirect, signOut as firebaseSignOut } from 'firebase/auth';
+import { onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithRedirect, getRedirectResult, signOut as firebaseSignOut } from 'firebase/auth';
 
 interface AuthContextType extends AuthState {
     login: (email: string, password?: string) => Promise<void>;
@@ -38,6 +38,19 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                 setIsAuthenticated(false);
             }
             setLoading(false);
+        });
+
+        // Handle redirect result
+        getRedirectResult(auth).then((result) => {
+            if (result) {
+                // User is signed in.
+                // The onAuthStateChanged listener will handle state updates, 
+                // but we can do specific post-login logic here if needed.
+                console.log("Redirect login successful", result.user);
+            }
+        }).catch((error) => {
+            console.error("Redirect login failed", error);
+            alert("Login Failed: " + error.message);
         });
 
         return () => unsubscribe();

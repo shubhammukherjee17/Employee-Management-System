@@ -17,6 +17,17 @@ export default function LoginPage() {
         }
     }, [isAuthenticated, router]);
 
+    if (isAuthenticated) {
+        return (
+            <div className="flex min-h-screen bg-[#0a0a0a] items-center justify-center">
+                <div className="text-center">
+                    <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <h2 className="text-xl font-semibold text-white">Redirecting to Dashboard...</h2>
+                </div>
+            </div>
+        );
+    }
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         await login(email, password);
