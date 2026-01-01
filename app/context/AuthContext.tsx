@@ -4,7 +4,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { AuthState, User } from '../types';
 import { auth, googleProvider } from '../../lib/firebase';
-import { onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, signOut as firebaseSignOut } from 'firebase/auth';
+import { onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithRedirect, signOut as firebaseSignOut } from 'firebase/auth';
 
 interface AuthContextType extends AuthState {
     login: (email: string, password?: string) => Promise<void>;
@@ -73,8 +73,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const loginWithGoogle = async () => {
         try {
-            await signInWithPopup(auth, googleProvider);
-            router.push('/dashboard');
+            await signInWithRedirect(auth, googleProvider);
+            // No need to redirect here as signInWithRedirect will trigger a page reload/redirect
         } catch (error: any) {
             console.error("Google Login failed", error);
             alert("Google Login Failed: " + error.message);

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useRouter } from 'next/navigation';
 import FuturisticIllustration from '../components/FuturisticIllustration';
@@ -8,8 +8,14 @@ import FuturisticIllustration from '../components/FuturisticIllustration';
 export default function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { login, loginWithGoogle } = useAuth();
+    const { login, loginWithGoogle, isAuthenticated } = useAuth();
     const router = useRouter();
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            router.push('/dashboard');
+        }
+    }, [isAuthenticated, router]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

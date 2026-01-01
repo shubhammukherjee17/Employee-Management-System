@@ -1,6 +1,5 @@
 # Nexus - Employee Management System
 
-![Nexus Banner](public/login-illustration.png)
 
 **Nexus** is a modern, all-in-one Employee Management System (EMS) designed to streamline workforce operations. It serves as an "Operating System for Teams," helping organizations manage attendance, leaves, projects, and performance in real-time.
 
@@ -12,7 +11,7 @@ Nexus comes packed with powerful modules to manage every aspect of your team:
 
 - **📊 Dashboard:** Real-time overview of workforce stats and activities.
 - **⚡ Real-time Attendance:** Monitor check-ins, check-outs, and work hours with location data.
-- **📅 Leave Management:** Streamlined workflow for leave requests and approvals.
+- **-📅 Leave Management:** Streamlined workflow for leave requests and approvals.
 - **👥 Employee Directory:** Comprehensive profiles and management for all staff members.
 - **📈 Performance Insights:** Data-driven analytics to track and improve team performance.
 - **📆 Schedule:** Shift planning and roster management (Coming soon).
